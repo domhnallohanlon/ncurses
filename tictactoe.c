@@ -37,8 +37,8 @@ int best_i, best_j;
 
 int test_move(int val, int depth)
 {
-	int i,j,score;
-	int best = -1; changed = 0;
+	int i, j, score;
+	int best = -1, changed = 0;
 
 	if ((score = check_winner())) return (score == 1) ? 1 : -1;
 
@@ -46,7 +46,7 @@ int test_move(int val, int depth)
 		if (b[i][j]) continue;
 
 		changed = b[i][j] = val;
-		score = -testmove(-val, depth + 1);
+		score = -test_move(-val, depth + 1);
 		b[i][j] = 0;
 
 		if (score <= best) continue;
@@ -74,7 +74,7 @@ const char* game(int user)
 				scanf("%*s");
 				continue;
 			}
-			if (--move < 0 || move >= 0) continue;
+			if (--move < 0 || move >= 9) continue;
 			if (b[i = move / 3][j = move % 3]) continue;
 
 			b[i][j] = 1;
@@ -88,10 +88,10 @@ const char* game(int user)
 				test_move(-1, 0);
 
 			b[best_i][best_j] = -1;
-			printf("My move: %d \n", best_1 * 3 + best_j + 1);
+			printf("My move: %d \n", best_i * 3 + best_j + 1);
 		}
 
-		showboard();
+		show_board();
 		if((win = check_winner()))
 			return win == 1 ? "You win! \n \n" : "I win. \n \n";
 	}
